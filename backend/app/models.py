@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Optional
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy import Integer, Text, DateTime, String, Float
-from .db import Base
+from backend.app.storage.db.base import Base
 
 
 class JournalEntry(Base):

@@ -4,8 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.ext.asyncio import AsyncEngine
 
 
-from .db import engine, Base
-from .routers import entries
+from backend.app.storage.db.base import engine, Base
+from backend.app.routers import entries
 
 
 app = FastAPI(title="Journal & Mood Tracker API")

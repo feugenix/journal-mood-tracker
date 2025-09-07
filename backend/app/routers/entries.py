@@ -4,8 +4,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, desc
 
 
-from ..db import get_session
-from .. import models, schemas
+from backend.app.storage.db.base import get_session
+from backend.app import models, schemas
 
 
 router = APIRouter(prefix="/entries", tags=["entries"])
