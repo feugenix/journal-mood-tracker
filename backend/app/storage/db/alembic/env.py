@@ -1,7 +1,8 @@
+import asyncio
 from logging.config import fileConfig
 from sqlalchemy import engine_from_config, pool
 from alembic import context
-from backend.app.storage.db.base import Base, DATABASE_URL
+from backend.app.storage.db.base import Base, DATABASE_URL, engine
 import backend.app.models # import models so Alembic can autogenerate migrations
 
 config = context.config
@@ -26,24 +27,24 @@ def run_migrations_offline():
         context.run_migrations()
 
 
-def run_migrations_online():
-    connectable = engine_from_config(
-        config.get_section(config.config_ini_section),
-        prefix="sqlalchemy.",
-        poolclass=pool.NullPool,
-        future=True,
+def _run_async_migrations(connection):
+    context.configure(
+        connection=connection,
+        target_metadata=target_metadata,
+        compare_type=True,
     )
-
-    with connectable.connect() as connection:
-        context.configure(
-            connection=connection,
-            target_metadata=target_metadata,
-            compare_type=True,
-        )
 
     with context.begin_transaction():
         context.run_migrations()
 
+async def run_async_migrations():
+    connectable = engine
+
+    async with connectable.connect() as connection:
+        await connection.run_sync(_run_async_migrations)
+
+def run_migrations_online():
+    asyncio.run(run_async_migrations())
 
 if context.is_offline_mode():
     run_migrations_offline()

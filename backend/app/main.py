@@ -30,7 +30,7 @@ async def health():
 app.include_router(entries.router, prefix="/api")
 
 # Create tables on startup (dev convenience). Replace with Alembic later if you want.
-@app.on_event("startup")
-async def on_startup():
-    async with engine.begin() as conn:  # type: AsyncEngine
-        await conn.run_sync(Base.metadata.create_all)
+# @app.on_event("startup")
+# async def on_startup():
+#     async with engine.begin() as conn:  # type: AsyncEngine
+#         await conn.run_sync(Base.metadata.create_all)
