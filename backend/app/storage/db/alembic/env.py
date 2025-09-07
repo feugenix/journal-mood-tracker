@@ -35,14 +35,17 @@ def _run_async_migrations(connection):
     with context.begin_transaction():
         context.run_migrations()
 
+
 async def run_async_migrations():
     connectable = engine
 
     async with connectable.connect() as connection:
         await connection.run_sync(_run_async_migrations)
 
+
 def run_migrations_online():
     asyncio.run(run_async_migrations())
+
 
 if context.is_offline_mode():
     run_migrations_offline()
