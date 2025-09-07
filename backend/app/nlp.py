@@ -21,6 +21,4 @@ def analyze_sentiment(text: str, top_k: int = 3) -> tuple[str, float]:
 
 def analyze_emotions(text: str, top_k: int = 3) -> dict[str, float]:
     results = emotions_pipeline(text[:512], top_k=top_k)
-    return {
-        r["label"].lower(): float(r["score"]) for r in results
-    }
+    return {r["label"].lower(): float(r["score"]) for r in results}
