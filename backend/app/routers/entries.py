@@ -5,6 +5,7 @@ from sqlalchemy import select, desc
 
 
 from backend.app.storage.db.base import get_session
+from backend.app import nlp
 from backend.app import models, schemas
 
 
@@ -28,8 +29,18 @@ async def list_entries(session: AsyncSession = Depends(get_session)):
 async def create_entry(
     payload: schemas.JournalEntryCreate, session: AsyncSession = Depends(get_session)
 ):
-    entry = models.JournalEntry(content=payload.content)
+    sentiment, score = nlp.analyze_sentiment(payload.content)
+    emotions = nlp.analyze_emotions(payload.content)
+
+    entry = models.JournalEntry(
+        content=payload.content,
+        sentiment=sentiment,
+        sentiment_score=score,
+        emotions=emotions,
+    )
     session.add(entry)
+
     await session.commit()
     await session.refresh(entry)
+
     return entry

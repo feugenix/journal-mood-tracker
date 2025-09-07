@@ -95,6 +95,18 @@ export default function App() {
                                 </small>
                             </div>
                         )}
+                        {e.emotions && (
+                            <div>
+                                <small>Emotions:</small>
+                                {Object.entries(e.emotions).map(([label, score]) => (
+                                    <div key={label}>
+                                        <small style={{ marginLeft: "10px" }}>
+                                            {label}: {score.toFixed(2)}
+                                        </small>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </li>
                 ))}
             </ul>

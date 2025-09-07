@@ -3,4 +3,4 @@
 .PHONY: lint-be
 
 lint-be:
-	docker compose -f docker-compose.test.yml run lint
+	docker compose -f docker-compose.test.yml run --rm lint
