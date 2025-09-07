@@ -1,9 +1,7 @@
 import asyncio
 from logging.config import fileConfig
-from sqlalchemy import engine_from_config, pool
 from alembic import context
 from backend.app.storage.db.base import Base, DATABASE_URL, engine
-import backend.app.models # import models so Alembic can autogenerate migrations
 
 config = context.config
 if config.config_file_name is not None:

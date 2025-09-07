@@ -1,4 +1,4 @@
-FROM python:3.13-alpine
+FROM python:3.13-alpine as base
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
@@ -10,3 +10,8 @@ RUN pip install -r requirements.txt
 
 EXPOSE 8000
 CMD ["uvicorn", "backend.app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+
+FROM base as test
+COPY requirements-dev.txt /app/
+RUN pip install -r requirements-dev.txt
+WORKDIR /app
