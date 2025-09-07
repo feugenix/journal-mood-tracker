@@ -15,6 +15,18 @@ services:
       timeout: 5s
       retries: 10
 
+  db-migrations:
+    build: ./backend
+    command: alembic -c /app/backend/app/storage/db/alembic/alembic.ini upgrade head
+    environment:
+      DATABASE_URL: postgresql+asyncpg://postgres:postgres@db:5432/journal
+    volumes:
+      - ./backend/app:/app/backend/app
+    depends_on:
+      db:
+        condition: service_healthy
+
+
   api:
     build: ./backend
     environment:
