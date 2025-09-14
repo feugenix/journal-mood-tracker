@@ -1,4 +1,5 @@
 from transformers import pipeline
+from sentence_transformers import SentenceTransformer
 
 sentiment_pipeline = pipeline(
     "sentiment-analysis",
@@ -13,6 +14,8 @@ emotions_pipeline = pipeline(
     top_k=None,
 )
 
+embedding_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+
 
 def analyze_sentiment(text: str, top_k: int = 3) -> tuple[str, float]:
     result = sentiment_pipeline(text[:512], top_k=top_k)[0]
@@ -22,3 +25,7 @@ def analyze_sentiment(text: str, top_k: int = 3) -> tuple[str, float]:
 def analyze_emotions(text: str, top_k: int = 3) -> dict[str, float]:
     results = emotions_pipeline(text[:512], top_k=top_k)
     return {r["label"].lower(): float(r["score"]) for r in results}
+
+
+def get_embedding(text: str) -> list[float]:
+    return embedding_model.encode(text, normalize_embeddings=True).tolist()

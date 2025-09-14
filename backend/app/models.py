@@ -3,6 +3,7 @@ from typing import Optional
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy import Integer, Text, DateTime, String, Float, JSON
 from backend.app.storage.db.base import Base
+from pgvector.sqlalchemy import VECTOR
 
 
 class JournalEntry(Base):
@@ -16,3 +17,4 @@ class JournalEntry(Base):
     sentiment: Mapped[Optional[str]] = mapped_column(String(32), nullable=True)
     sentiment_score: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
     emotions: Mapped[Optional[dict[str, float]]] = mapped_column(JSON, nullable=True)
+    embedding: Mapped[Optional[VECTOR]] = mapped_column(VECTOR(384), nullable=True)
