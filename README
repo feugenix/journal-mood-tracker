@@ -1,1 +1,6 @@
 Simple mood tracker. Created only in educational purposes.
+
+To start:
+`docker compose up -d`
+
+Open `http://localhost:5123`
