@@ -107,6 +107,18 @@ export default function App() {
                                 ))}
                             </div>
                         )}
+                        {e.keywords && (
+                            <div>
+                                <small>Keywords:</small>
+                                {e.keywords.map((keyword) => (
+                                    <div key={keyword}>
+                                        <small style={{ marginLeft: "10px" }}>
+                                            {keyword}
+                                        </small>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </li>
                 ))}
             </ul>

@@ -32,6 +32,7 @@ async def create_entry(
     sentiment, score = nlp.analyze_sentiment(payload.content)
     emotions = nlp.analyze_emotions(payload.content)
     embedding = nlp.get_embedding(payload.content)
+    keywords = nlp.extract_keywords(payload.content)
 
     entry = models.JournalEntry(
         content=payload.content,
@@ -39,6 +40,7 @@ async def create_entry(
         sentiment_score=score,
         emotions=emotions,
         embedding=embedding,
+        keywords=keywords,
     )
     session.add(entry)
 

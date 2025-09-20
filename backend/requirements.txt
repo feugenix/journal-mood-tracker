@@ -10,3 +10,4 @@ transformers>=4.42,<5.0.0
 torch>=2.2,<3.0.0
 pgvector>=0.4.1,<1.0.0
 sentence-transformers>=5.1.0,<6.0.0
+KeyBERT>=0.9.0,<1.0.0

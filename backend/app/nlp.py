@@ -1,5 +1,9 @@
 from transformers import pipeline
 from sentence_transformers import SentenceTransformer
+from keybert import KeyBERT
+
+kw_model = KeyBERT(model=SentenceTransformer("all-MiniLM-L6-v2"))
+
 
 sentiment_pipeline = pipeline(
     "sentiment-analysis",
@@ -29,3 +33,10 @@ def analyze_emotions(text: str, top_k: int = 3) -> dict[str, float]:
 
 def get_embedding(text: str) -> list[float]:
     return embedding_model.encode(text, normalize_embeddings=True).tolist()
+
+
+def extract_keywords(text: str, top_k: int = 5):
+    keywords = kw_model.extract_keywords(
+        text, keyphrase_ngram_range=(1, 2), stop_words="english", top_n=top_k
+    )
+    return [word for word, score in keywords]

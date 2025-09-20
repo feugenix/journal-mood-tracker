@@ -16,4 +16,5 @@ class JournalEntryRead(JournalEntryBase):
     sentiment: str | None = None
     sentiment_score: float | None = None
     emotions: dict | None = None
+    keywords: list[str] | None = None
     model_config = ConfigDict(from_attributes=True)
